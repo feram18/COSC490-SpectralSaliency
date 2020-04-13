@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, LSTM#, CuDNNLSTM
+from tensorflow.keras.layers import Dense, Dropout, LSTM, Flatten#, CuDNNLSTM
 
 # Load the dataset ...
 #  You will need to seperately download or generate this file
@@ -25,7 +25,7 @@ X = np.vstack(X)
 #  while keeping SNR and Mod labels handy for each
 np.random.seed(2016)
 n_examples = X.shape[0]
-n_train = int(n_examples * 0.5)
+n_train = int(n_examples * 0.7)
 train_idx = np.random.choice(range(0,n_examples), size=n_train, replace=False)
 test_idx = list(set(range(0,n_examples))-set(train_idx))
 X_train = X[train_idx]
@@ -76,7 +76,6 @@ opt = tf.keras.optimizers.Adam(lr=0.001, decay=1e-6)
 #
 # opt = tf.keras.optimizers.Adam(lr=0.001, decay=1e-6)
 
-
 # Compile model
 model.compile(
     loss='categorical_crossentropy',
@@ -89,3 +88,4 @@ model.fit(X_train,
           Y_train,
           epochs=3,
           validation_data=(X_test, Y_test))
+

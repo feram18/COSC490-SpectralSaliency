@@ -52,7 +52,8 @@ dr = 0.5 # dropout rate (%)
 model = Sequential()
 model.add(Reshape([1]+in_shp, input_shape=in_shp))
 model.add(ZeroPadding2D((0, 2)))
-model.add(Conv2D(256, 1, strides = 3, padding='valid', activation="relu", name="conv1", kernel_initializer = "glorot_uniform", data_format='channels_first'))
+model.add(Conv2D(256, 1, strides = 3, padding='valid', activation="relu", name="conv1", kernel_initializer = "glorot_uniform",
+                 data_format='channels_first'))
 model.add(Dropout(dr))
 model.add(ZeroPadding2D((0, 2)))
 model.add(Conv2D(80, 2, strides=3, padding="valid", activation="relu", name="conv2", kernel_initializer = "glorot_uniform"))
@@ -76,10 +77,6 @@ model.fit(X_train,
           epochs=nb_epoch,
           verbose=2,
           validation_data=(X_test, Y_test),
-          # callbacks = [
-          #     tf.keras.callbacks.ModelCheckpoint(filepath, monitor='val_loss', verbose=0, save_best_only=True, mode='auto'),
-          #     keras.callbacks.EarlyStopping(monitor='val_loss', patience=5, verbose=0, mode='auto')
-          # ]
           )
 
 # model.fit(X_train,
