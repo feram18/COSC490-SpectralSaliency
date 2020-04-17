@@ -1,7 +1,7 @@
 
 import pickle
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as pyplot
 
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
@@ -84,8 +84,17 @@ model.compile(
 )
 model.summary()
 #
-model.fit(X_train,
+history = model.fit(X_train,
           Y_train,
           epochs=3,
           validation_data=(X_test, Y_test))
+
+# plot train and validation loss
+pyplot.plot(history.history['loss'])
+pyplot.plot(history.history['val_loss'])
+pyplot.title('model train vs validation loss')
+pyplot.ylabel('loss')
+pyplot.xlabel('epoch')
+pyplot.legend(['train', 'validation'], loc='upper right')
+pyplot.show()
 
